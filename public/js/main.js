@@ -32,12 +32,14 @@ function renderIcons() {
 
 async function init() {
   try {
-    const [features, team] = await Promise.all([
+    const [features, team, visits] = await Promise.all([
       loadJSON('/api/features'),
       loadJSON('/api/team'),
+      loadJSON('/api/visits'),
     ])
     document.getElementById('features-grid').innerHTML = features.map(createFeatureCard).join('')
     document.getElementById('team-grid').innerHTML = team.map(createTeamCard).join('')
+    document.getElementById('visits-count').textContent = visits.count
     renderIcons()
     loadQuiz()
   } catch (err) {

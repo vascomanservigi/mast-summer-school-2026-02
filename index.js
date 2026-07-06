@@ -1,8 +1,34 @@
 const express = require('express')
 const path = require('path')
+const { Pool } = require('pg')
 
 const app = express()
 const PORT = process.env.PORT || 3000
+
+const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://prova1_user:SJh7gMZ546v5ahmmOzTjb1thZaHgZfwy@dpg-d95o4sgjs32c7384qdtg-a/prova1'
+
+const pool = new Pool({
+  connectionString: DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+})
+
+async function initDB() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS visits (
+        id INTEGER PRIMARY KEY DEFAULT 1,
+        count INTEGER DEFAULT 0
+      )
+    `)
+    const result = await pool.query('SELECT count FROM visits WHERE id = 1')
+    if (result.rows.length === 0) {
+      await pool.query('INSERT INTO visits (id, count) VALUES (1, 0)')
+    }
+    console.log('Database inizializzato')
+  } catch (err) {
+    console.error('Errore database:', err.message)
+  }
+}
 
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
@@ -42,6 +68,17 @@ app.get('/api/features', (req, res) => res.json(features))
 app.get('/api/team', (req, res) => res.json(team))
 app.get('/api/quiz', (req, res) => res.json(quiz[0]))
 
+app.get('/api/visits', async (req, res) => {
+  try {
+    await pool.query('UPDATE visits SET count = count + 1 WHERE id = 1')
+    const result = await pool.query('SELECT count FROM visits WHERE id = 1')
+    res.json({ count: result.rows[0].count })
+  } catch (err) {
+    console.error('Errore visite:', err.message)
+    res.status(500).json({ error: 'Errore database' })
+  }
+})
+
 app.post('/api/contact', (req, res) => {
   const { name, email, message } = req.body
   if (!name || !email || !message) {
@@ -56,6 +93,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+initDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+  })
 })

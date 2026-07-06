@@ -3,48 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CyberGuard - MAST Summer School 2026</title>
+  <title>CyberGuard - Piattaforma di Cybersecurity</title>
   <link rel="stylesheet" href="/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="/" class="logo">
-        <div class="logo-icon"><i data-lucide="shield-check"></i></div>
-        <span>CyberGuard</span>
-      </a>
-      <nav class="nav" id="nav">
-        <a href="#chi-siamo" class="nav-link">Chi siamo</a>
-        <a href="#progetto" class="nav-link">Il progetto</a>
-        <a href="#funzionalita" class="nav-link">Funzionalità</a>
-        <a href="#news" class="nav-link">News</a>
-        <a href="#team" class="nav-link">Team</a>
-        <a href="#contatti" class="nav-link">Contatti</a>
-        <a href="/admin" class="nav-link nav-admin"><i data-lucide="lock"></i> Admin</a>
-      </nav>
-      <button class="nav-toggle" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-top">
+      <div class="container">
+        <div class="header-top-inner">
+          <span>Piattaforma di Cybersecurity</span>
+          <div class="header-top-links">
+            <a href="#contatti">Contatti</a>
+            <a href="/admin">Area riservata</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-main">
+      <div class="container header-main-inner">
+        <a href="/" class="site-logo">
+          <div class="logo-mark"><i data-lucide="shield-check"></i></div>
+          <div class="logo-text">
+            <span class="logo-title">CyberGuard</span>
+            <span class="logo-subtitle">Cybersecurity per tutti</span>
+          </div>
+        </a>
+        <nav class="main-nav" id="main-nav">
+          <a href="#chi-siamo">Chi siamo</a>
+          <a href="#progetto">Il progetto</a>
+          <a href="#funzionalita">Funzionalità</a>
+          <a href="#news">News</a>
+          <a href="#team">Team</a>
+        </nav>
+        <button class="nav-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <div class="container">
+      <span>Ti trovi in:</span>
+      <a href="/">Home</a>
+    </div>
+  </div>
+
   <!-- Hero -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="container hero-content">
-      <div class="hero-badge"><i data-lucide="sparkles"></i> MAST Summer School 2026</div>
-      <h1 class="hero-title">Impara a proteggerti<br><span>nel mondo digitale</span></h1>
-      <p class="hero-subtitle">CyberGuard è una piattaforma educativa sviluppata da studenti per insegnare cybersecurity attraverso quiz interattivi, moduli formativi e simulazioni realistiche.</p>
-      <div class="hero-actions">
-        <a href="#progetto" class="btn btn-primary btn-lg">Scopri il progetto</a>
-        <a href="#demo" class="btn btn-outline btn-lg">Prova la demo</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Quiz interattivi</span></div>
-        <div class="stat"><span class="stat-num">12</span><span class="stat-label">Moduli formativi</span></div>
-        <div class="stat"><span class="stat-num">6</span><span class="stat-label">Aree tematiche</span></div>
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <h1>Impara a proteggerti nel mondo digitale</h1>
+          <p class="hero-lead">CyberGuard è una piattaforma educativa per sensibilizzare studenti e cittadini sulle tematiche della cybersecurity attraverso percorsi formativi interattivi.</p>
+          <div class="hero-actions">
+            <a href="#progetto" class="btn btn-primary">Scopri il progetto</a>
+            <a href="#demo" class="btn btn-outline">Prova la demo</a>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-box">
+            <strong>50+</strong>
+            <span>Quiz interattivi</span>
+          </div>
+          <div class="stat-box">
+            <strong>12</strong>
+            <span>Moduli formativi</span>
+          </div>
+          <div class="stat-box">
+            <strong>6</strong>
+            <span>Aree tematiche</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -52,67 +86,69 @@
   <!-- Chi Siamo -->
   <section id="chi-siamo" class="section">
     <div class="container">
-      <div class="section-row">
-        <div class="section-text">
-          <span class="section-label">Chi siamo</span>
-          <h2 class="section-title">Un team di studenti appassionati di cybersecurity</h2>
-          <p class="section-desc">Siamo un gruppo di studenti delle superiori che partecipa al MAST Summer School 2026. Durante questo percorso abbiamo deciso di creare CyberGuard per condividere le nostre conoscenze con altri giovani.</p>
-          <p class="section-desc">Crediamo che la cybersecurity sia una competenza fondamentale per chiunque viva nel mondo digitale di oggi. La nostra missione è renderla accessibile a tutti.</p>
-          <ul class="feature-list">
-            <li><i data-lucide="check-circle"></i> Studenti del MAST Summer School 2026</li>
-            <li><i data-lucide="check-circle"></i> Track Cyberworld</li>
-            <li><i data-lucide="check-circle"></i> Bologna, 3-10 Luglio 2026</li>
-          </ul>
+      <div class="section-header">
+        <h2>Chi siamo</h2>
+        <div class="section-intro">
+          <p>Siamo un gruppo di studenti che partecipa al MAST Summer School 2026. Il nostro obiettivo è diffondere la cultura della cybersecurity tra i giovani, rendendo accessibili concetti complessi attraverso un approccio pratico e coinvolgente.</p>
         </div>
-        <div class="section-visual">
-          <div class="visual-card">
-            <div class="visual-icon"><i data-lucide="graduation-cap"></i></div>
-            <h3>Formazione</h3>
-            <p>Percorso intensivo di 8 giorni su sviluppo web e cybersecurity</p>
-          </div>
-          <div class="visual-card">
-            <div class="visual-icon"><i data-lucide="users"></i></div>
-            <h3>Teamwork</h3>
-            <p>Collaborazione tra studenti con competenze diverse</p>
-          </div>
-          <div class="visual-card">
-            <div class="visual-icon"><i data-lucide="rocket"></i></div>
-            <h3>Innovazione</h3>
-            <p>Progetti reali che risolvono problemi concreti</p>
-          </div>
+      </div>
+      <div class="content-grid">
+        <div class="content-card">
+          <div class="card-icon"><i data-lucide="graduation-cap"></i></div>
+          <h3>Formazione</h3>
+          <p>Percorso intensivo di 8 giorni su sviluppo web e cybersecurity, con docenti qualificati e laboratori pratici.</p>
+        </div>
+        <div class="content-card">
+          <div class="card-icon"><i data-lucide="users"></i></div>
+          <h3>Teamwork</h3>
+          <p>Collaborazione tra studenti con competenze diverse: sviluppo, design, comunicazione e contenuti.</p>
+        </div>
+        <div class="content-card">
+          <div class="card-icon"><i data-lucide="target"></i></div>
+          <h3>Mission</h3>
+          <p>Rendere la cybersecurity accessibile a tutti, con contenuti chiari, quiz interattivi e simulazioni realistiche.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Il Progetto -->
-  <section id="progetto" class="section section-dark">
+  <section id="progetto" class="section section-gray">
     <div class="container">
-      <div class="section-header center">
-        <span class="section-label">Il progetto</span>
-        <h2 class="section-title">In cosa consiste CyberGuard</h2>
-        <p class="section-desc">Una piattaforma completa per imparare la cybersecurity in modo interattivo e coinvolgente.</p>
+      <div class="section-header">
+        <h2>Il progetto</h2>
+        <div class="section-intro">
+          <p>CyberGuard nasce per rispondere all'esigenza di formare i giovani sui rischi del mondo digitale. La piattaforma offre strumenti pratici per riconoscere e prevenire le principali minacce online.</p>
+        </div>
       </div>
-      <div class="project-grid">
-        <div class="project-card">
-          <div class="project-icon"><i data-lucide="brain"></i></div>
-          <h3>Quiz Interattivi</h3>
-          <p>Domande su phishing, malware, password sicure, social engineering e molto altro. Impara riconoscendo le minacce reali.</p>
+      <div class="project-list">
+        <div class="project-item">
+          <div class="project-num">01</div>
+          <div class="project-content">
+            <h3>Quiz interattivi</h3>
+            <p>Domande su phishing, malware, password sicure, social engineering. Impara riconoscendo le minacce reali in un ambiente sicuro.</p>
+          </div>
         </div>
-        <div class="project-card">
-          <div class="project-icon"><i data-lucide="book-open"></i></div>
-          <h3>Moduli Formativi</h3>
-          <p>Contenuti strutturati e aggiornati sulle ultime minacce informatiche, con spiegazioni chiare ed esempi pratici.</p>
+        <div class="project-item">
+          <div class="project-num">02</div>
+          <div class="project-content">
+            <h3>Moduli formativi</h3>
+            <p>Contenuti strutturati e aggiornati sulle ultime minacce informatiche, con spiegazioni chiare ed esempi pratici.</p>
+          </div>
         </div>
-        <div class="project-card">
-          <div class="project-icon"><i data-lucide="target"></i></div>
-          <h3>Simulazioni</h3>
-          <p>Scenari realistici dove dovrai prendere decisioni: riconoscerai email di phishing, attacchi e vulnerabilità.</p>
+        <div class="project-item">
+          <div class="project-num">03</div>
+          <div class="project-content">
+            <h3>Simulazioni realistiche</h3>
+            <p>Scenari che riproducono situazioni reali: riconoscerai email di phishing, attacchi e vulnerabilità.</p>
+          </div>
         </div>
-        <div class="project-card">
-          <div class="project-icon"><i data-lucide="trophy"></i></div>
-          <h3>Gamification</h3>
-          <p>Punti, badge e classifiche per rendere l'apprendimento coinvolgente e competitivo.</p>
+        <div class="project-item">
+          <div class="project-num">04</div>
+          <div class="project-content">
+            <h3>Sistema di gamification</h3>
+            <p>Punti, badge e classifiche per rendere l'apprendimento coinvolgente e stimolare la partecipazione.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -122,70 +158,59 @@
   <section id="funzionalita" class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-label">Funzionalità</span>
-        <h2 class="section-title">Tutto ciò che offre la piattaforma</h2>
+        <h2>Funzionalità</h2>
+        <div class="section-intro">
+          <p>La piattaforma copre le principali aree della cybersecurity con contenuti specifici e quiz mirati.</p>
+        </div>
       </div>
-      <div class="features-list">
+      <div class="features-grid">
         <div class="feature-item">
-          <div class="feature-icon"><i data-lucide="shield"></i></div>
-          <div class="feature-content">
-            <h3>Sicurezza delle password</h3>
-            <p>Impara a creare password robuste e a gestirle in modo sicuro con i password manager.</p>
-          </div>
+          <i data-lucide="key"></i>
+          <h3>Sicurezza delle password</h3>
+          <p>Impara a creare password robuste e a gestirle in modo sicuro con i password manager.</p>
         </div>
         <div class="feature-item">
-          <div class="feature-icon"><i data-lucide="mail"></i></div>
-          <div class="feature-content">
-            <h3>Riconoscere il phishing</h3>
-            <p>Identifica email fraudolente, siti contraffatti e messaggi malevoli.</p>
-          </div>
+          <i data-lucide="mail"></i>
+          <h3>Riconoscere il phishing</h3>
+          <p>Identifica email fraudolente, siti contraffatti e messaggi malevoli.</p>
         </div>
         <div class="feature-item">
-          <div class="feature-icon"><i data-lucide="smartphone"></i></div>
-          <div class="feature-content">
-            <h3>Sicurezza mobile</h3>
-            <p>Proteggi il tuo smartphone da app malevole, permessi pericolosi e truffe.</p>
-          </div>
+          <i data-lucide="smartphone"></i>
+          <h3>Sicurezza mobile</h3>
+          <p>Proteggi il tuo smartphone da app malevole, permessi pericolosi e truffe.</p>
         </div>
         <div class="feature-item">
-          <div class="feature-icon"><i data-lucide="globe"></i></div>
-          <div class="feature-content">
-            <h3>Navigazione sicura</h3>
-            <p>Come riconoscere siti sicuri, usare VPN e proteggere la tua privacy online.</p>
-          </div>
+          <i data-lucide="globe"></i>
+          <h3>Navigazione sicura</h3>
+          <p>Come riconoscere siti sicuri, usare VPN e proteggere la tua privacy online.</p>
         </div>
         <div class="feature-item">
-          <div class="feature-icon"><i data-lucide="user-x"></i></div>
-          <div class="feature-content">
-            <h3>Social engineering</h3>
-            <p>Difenditi dalle manipolazioni psicologiche usate dagli hacker.</p>
-          </div>
+          <i data-lucide="user-x"></i>
+          <h3>Social engineering</h3>
+          <p>Difenditi dalle manipolazioni psicologiche usate dagli hacker per carpire informazioni.</p>
         </div>
         <div class="feature-item">
-          <div class="feature-icon"><i data-lucide="database"></i></div>
-          <div class="feature-content">
-            <h3>Protezione dei dati</h3>
-            <p>Backup, crittografia e buone pratiche per proteggere i tuoi file.</p>
-          </div>
+          <i data-lucide="database"></i>
+          <h3>Protezione dei dati</h3>
+          <p>Backup, crittografia e buone pratiche per proteggere i tuoi file personali.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Demo -->
-  <section id="demo" class="section section-dark">
+  <section id="demo" class="section section-gray">
     <div class="container">
-      <div class="section-header center">
-        <span class="section-label">Demo</span>
-        <h2 class="section-title">Prova un quiz</h2>
-        <p class="section-desc">Metti alla prova le tue conoscenze con un esempio interattivo.</p>
+      <div class="section-header">
+        <h2>Prova la demo</h2>
+        <div class="section-intro">
+          <p>Metti alla prova le tue conoscenze con un esempio interattivo del nostro sistema di quiz.</p>
+        </div>
       </div>
       <div class="demo-box">
-        <div class="quiz-container">
-          <div class="quiz-question" id="quiz-question"></div>
-          <div class="quiz-options" id="quiz-options"></div>
-          <div class="quiz-result" id="quiz-result"></div>
-        </div>
+        <div class="quiz-question" id="quiz-question"></div>
+        <div class="quiz-options" id="quiz-options"></div>
+        <div class="quiz-result" id="quiz-result"></div>
       </div>
     </div>
   </section>
@@ -194,46 +219,48 @@
   <section id="news" class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-label">News</span>
-        <h2 class="section-title">Aggiornamenti e novità</h2>
-        <p class="section-desc">Resta informato sulle ultime novità del progetto CyberGuard.</p>
+        <h2>News e aggiornamenti</h2>
+        <div class="section-intro">
+          <p>Resta informato sulle ultime novità del progetto CyberGuard.</p>
+        </div>
       </div>
       <div class="news-grid" id="news-grid"></div>
     </div>
   </section>
 
   <!-- Team -->
-  <section id="team" class="section section-dark">
+  <section id="team" class="section section-gray">
     <div class="container">
-      <div class="section-header center">
-        <span class="section-label">Il team</span>
-        <h2 class="section-title">Chi c'è dietro CyberGuard</h2>
-        <p class="section-desc">Un team di studenti appassionati con competenze complementari.</p>
+      <div class="section-header">
+        <h2>Il team</h2>
+        <div class="section-intro">
+          <p>Il gruppo di studenti che ha sviluppato CyberGuard durante il MAST Summer School 2026.</p>
+        </div>
       </div>
       <div class="team-grid">
         <div class="team-card">
           <div class="team-avatar">MR</div>
           <h3>Marco Rossi</h3>
           <p class="team-role">Backend & API</p>
-          <p class="team-desc">Sviluppo del server, database e logica delle API</p>
+          <p>Sviluppo del server, database e logica delle API</p>
         </div>
         <div class="team-card">
           <div class="team-avatar">GT</div>
           <h3>Giulia Torresi</h3>
           <p class="team-role">Frontend & UI</p>
-          <p class="team-desc">Design dell'interfaccia e sviluppo client-side</p>
+          <p>Design dell'interfaccia e sviluppo client-side</p>
         </div>
         <div class="team-card">
           <div class="team-avatar">AB</div>
           <h3>Alessandro Bianchi</h3>
           <p class="team-role">Content & Quiz</p>
-          <p class="team-desc">Creazione dei contenuti educativi e dei quiz</p>
+          <p>Creazione dei contenuti educativi e dei quiz</p>
         </div>
         <div class="team-card">
           <div class="team-avatar">SL</div>
           <h3>Sofia Lombardi</h3>
           <p class="team-role">Design & UX</p>
-          <p class="team-desc">User experience, grafica e comunicazione visiva</p>
+          <p>User experience, grafica e comunicazione visiva</p>
         </div>
       </div>
     </div>
@@ -244,72 +271,93 @@
     <div class="container">
       <div class="contact-grid">
         <div class="contact-info">
-          <span class="section-label">Contatti</span>
-          <h2 class="section-title">Parliamo del progetto</h2>
-          <p class="section-desc">Hai domande, suggerimenti o vuoi collaborare? Scrivici!</p>
+          <h2>Contatti</h2>
+          <p>Per informazioni, suggerimenti o collaborazioni puoi contattarci tramite i seguenti canali.</p>
           <div class="contact-details">
             <div class="contact-item">
               <i data-lucide="mail"></i>
-              <span>cyberguard@mast.org</span>
+              <div>
+                <strong>Email</strong>
+                <span>cyberguard@example.it</span>
+              </div>
             </div>
             <div class="contact-item">
               <i data-lucide="map-pin"></i>
-              <span>Bologna, Italia</span>
+              <div>
+                <strong>Sede</strong>
+                <span>Bologna, Italia</span>
+              </div>
             </div>
             <div class="contact-item">
               <i data-lucide="calendar"></i>
-              <span>3-10 Luglio 2026</span>
+              <div>
+                <strong>Periodo</strong>
+                <span>3-10 Luglio 2026</span>
+              </div>
             </div>
           </div>
         </div>
-        <form class="contact-form" id="contact-form">
-          <div class="form-group">
-            <label>Nome</label>
-            <input type="text" placeholder="Il tuo nome" required class="form-input">
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="La tua email" required class="form-input">
-          </div>
-          <div class="form-group">
-            <label>Messaggio</label>
-            <textarea placeholder="Il tuo messaggio" rows="5" required class="form-input"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-lg">Invia messaggio</button>
-        </form>
+        <div class="contact-form-wrapper">
+          <form class="contact-form" id="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contact-name">Nome *</label>
+                <input type="text" id="contact-name" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label for="contact-email">Email *</label>
+                <input type="email" id="contact-email" class="form-input" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Messaggio *</label>
+              <textarea id="contact-message" class="form-input" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Invia messaggio</button>
+          </form>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo"><div class="logo-icon"><i data-lucide="shield-check"></i></div><span>CyberGuard</span></div>
-          <p>Piattaforma educativa per la cybersecurity, sviluppata durante il MAST Summer School 2026.</p>
+        <div class="footer-col">
+          <div class="footer-logo">
+            <i data-lucide="shield-check"></i>
+            <span>CyberGuard</span>
+          </div>
+          <p>Piattaforma educativa per la cybersecurity, sviluppata durante il MAST Summer School 2026 - Track Cyberworld.</p>
         </div>
-        <div class="footer-links">
+        <div class="footer-col">
           <h4>Link utili</h4>
-          <a href="#chi-siamo">Chi siamo</a>
-          <a href="#progetto">Il progetto</a>
-          <a href="#funzionalita">Funzionalità</a>
-          <a href="#news">News</a>
+          <ul>
+            <li><a href="#chi-siamo">Chi siamo</a></li>
+            <li><a href="#progetto">Il progetto</a></li>
+            <li><a href="#funzionalita">Funzionalità</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#team">Team</a></li>
+          </ul>
         </div>
-        <div class="footer-links">
+        <div class="footer-col">
           <h4>Risorse</h4>
-          <a href="https://www.academy.mast.org/summer-school-2026" target="_blank">MAST Summer School</a>
-          <a href="#demo">Demo quiz</a>
-          <a href="/admin">Area admin</a>
+          <ul>
+            <li><a href="#demo">Demo quiz</a></li>
+            <li><a href="/admin">Area riservata</a></li>
+            <li><a href="#contatti">Contatti</a></li>
+          </ul>
         </div>
-        <div class="footer-links">
+        <div class="footer-col">
           <h4>Contatti</h4>
-          <a href="mailto:cyberguard@mast.org">cyberguard@mast.org</a>
-          <a href="#contatti">Form contatti</a>
+          <ul>
+            <li><a href="mailto:cyberguard@example.it">cyberguard@example.it</a></li>
+          </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 CyberGuard — MAST Summer School 2026, Track Cyberworld</p>
+        <p>© 2026 CyberGuard - MAST Summer School 2026</p>
       </div>
     </div>
   </footer>

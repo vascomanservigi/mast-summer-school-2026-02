@@ -16,6 +16,7 @@ async function loadJSON(url) {
 }
 
 function escapeHtml(text) {
+  if (!text) return ''
   const div = document.createElement('div')
   div.textContent = text
   return div.innerHTML
@@ -39,10 +40,10 @@ function renderQuiz() {
   const optionsEl = document.getElementById('quiz-options')
   const resultEl = document.getElementById('quiz-result')
 
+  if (!questionEl) return
+
   questionEl.textContent = quiz.question
-  optionsEl.innerHTML = quiz.options.map((opt, i) => 
-    `<div class="quiz-option" data-index="${i}">${opt}</div>`
-  ).join('')
+  optionsEl.innerHTML = quiz.options.map((opt, i) => `<div class="quiz-option" data-index="${i}">${opt}</div>`).join('')
   resultEl.className = 'quiz-result'
   resultEl.style.display = 'none'
 
@@ -58,10 +59,10 @@ function renderQuiz() {
       resultEl.style.display = 'block'
       if (index === quiz.correct) {
         resultEl.className = 'quiz-result show correct'
-        resultEl.textContent = '✓ Corretto! Ottimo lavoro, hai riconosciuto una potenziale truffa.'
+        resultEl.textContent = 'Risposta corretta. Hai riconosciuto una potenziale truffa.'
       } else {
         resultEl.className = 'quiz-result show wrong'
-        resultEl.textContent = '✗ Sbagliato. La risposta corretta è evidenziata in verde.'
+        resultEl.textContent = 'Risposta errata. La risposta corretta è evidenziata.'
       }
     })
   })
@@ -71,10 +72,12 @@ async function init() {
   try {
     const news = await loadJSON('/api/news')
     const newsGrid = document.getElementById('news-grid')
-    if (news.length === 0) {
-      newsGrid.innerHTML = '<p style="color:var(--gray-400);grid-column:1/-1">Nessuna news al momento. Visita l\'area admin per aggiungerne una.</p>'
-    } else {
-      newsGrid.innerHTML = news.map(createNewsCard).join('')
+    if (newsGrid) {
+      if (news.length === 0) {
+        newsGrid.innerHTML = '<p style="color:var(--gray-500);grid-column:1/-1">Nessuna news al momento.</p>'
+      } else {
+        newsGrid.innerHTML = news.map(createNewsCard).join('')
+      }
     }
     renderQuiz()
     lucide.createIcons()
@@ -85,8 +88,8 @@ async function init() {
 
 document.addEventListener('DOMContentLoaded', init)
 
-document.querySelector('.nav-toggle').addEventListener('click', () => {
-  document.getElementById('nav').classList.toggle('open')
+document.querySelector('.nav-toggle')?.addEventListener('click', () => {
+  document.getElementById('main-nav')?.classList.toggle('open')
 })
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -97,7 +100,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       const target = document.querySelector(href)
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        document.getElementById('nav').classList.remove('open')
+        document.getElementById('main-nav')?.classList.remove('open')
       }
     }
   })
@@ -106,25 +109,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 document.getElementById('contact-form')?.addEventListener('submit', async e => {
   e.preventDefault()
   const btn = e.target.querySelector('button[type="submit"]')
-  const inputs = e.target.querySelectorAll('input, textarea')
   const data = {
-    name: inputs[0].value,
-    email: inputs[1].value,
-    message: inputs[2].value
+    name: document.getElementById('contact-name').value,
+    email: document.getElementById('contact-email').value,
+    message: document.getElementById('contact-message').value
   }
-  btn.textContent = 'Invio in corso...'
+  btn.textContent = 'Invio...'
   btn.disabled = true
   try {
-    await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    btn.textContent = 'Messaggio inviato ✓'
+    await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+    btn.textContent = 'Messaggio inviato'
     e.target.reset()
     setTimeout(() => { btn.textContent = 'Invia messaggio'; btn.disabled = false }, 3000)
   } catch {
-    btn.textContent = 'Errore, riprova'
+    btn.textContent = 'Errore'
     btn.disabled = false
   }
 })

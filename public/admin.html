@@ -3,77 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - CyberGuard</title>
+  <title>Area riservata - CyberGuard</title>
   <link rel="stylesheet" href="/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="/" class="logo">
-        <div class="logo-icon"><i data-lucide="shield-check"></i></div>
-        <span>CyberGuard</span>
-      </a>
-      <nav class="nav">
-        <a href="/" class="nav-link">Torna al sito</a>
-        <a href="#" class="nav-link" id="logout-btn" style="display:none"><i data-lucide="log-out"></i> Logout</a>
-      </nav>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="container">
+        <div class="header-top-inner">
+          <span>Piattaforma di Cybersecurity</span>
+          <div class="header-top-links">
+            <a href="/">Torna al sito</a>
+            <a href="#" id="logout-btn" style="display:none">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-main">
+      <div class="container header-main-inner">
+        <a href="/" class="site-logo">
+          <div class="logo-mark"><i data-lucide="shield-check"></i></div>
+          <div class="logo-text">
+            <span class="logo-title">CyberGuard</span>
+            <span class="logo-subtitle">Area riservata</span>
+          </div>
+        </a>
+      </div>
     </div>
   </header>
 
-  <section class="section" style="min-height:85vh; padding-top:8rem;">
+  <div class="breadcrumb">
+    <div class="container">
+      <span>Ti trovi in:</span>
+      <a href="/">Home</a>
+      <span>/ Area riservata</span>
+    </div>
+  </div>
+
+  <main class="section" style="min-height:70vh">
     <div class="container">
       <!-- Login -->
       <div id="login-box" class="login-box">
-        <div class="login-icon"><i data-lucide="lock"></i></div>
-        <h2>Area riservata</h2>
-        <p>Inserisci le credenziali per accedere al pannello admin</p>
+        <div class="login-header">
+          <i data-lucide="lock"></i>
+          <h1>Accesso all'area riservata</h1>
+          <p>Inserisci le tue credenziali per accedere al pannello di amministrazione.</p>
+        </div>
         <form id="login-form">
           <div class="form-group">
-            <label>Username</label>
+            <label for="username">Username</label>
             <input type="text" id="username" class="form-input" required autocomplete="username">
           </div>
           <div class="form-group">
-            <label>Password</label>
+            <label for="password">Password</label>
             <input type="password" id="password" class="form-input" required autocomplete="current-password">
           </div>
           <div id="login-error" class="login-error"></div>
-          <button type="submit" class="btn btn-primary btn-lg" style="width:100%">Accedi</button>
+          <button type="submit" class="btn btn-primary" style="width:100%">Accedi</button>
         </form>
       </div>
 
       <!-- Admin Panel -->
       <div id="admin-panel" style="display:none">
-        <div class="admin-header">
-          <div>
-            <span class="section-label">Pannello amministrativo</span>
-            <h1 class="section-title">Gestione contenuti</h1>
-          </div>
+        <div class="section-header" style="margin-bottom:2rem">
+          <h2>Gestione contenuti</h2>
         </div>
 
         <div class="admin-grid">
-          <!-- Form -->
           <div class="admin-form">
             <h3 id="form-title">Nuova news</h3>
             <form id="news-form">
               <input type="hidden" id="news-id">
               <div class="form-group">
-                <label>Titolo</label>
-                <input type="text" id="news-title" class="form-input" placeholder="Titolo della news" required>
+                <label for="news-title">Titolo *</label>
+                <input type="text" id="news-title" class="form-input" required>
               </div>
               <div class="form-group">
-                <label>Contenuto</label>
-                <textarea id="news-content" class="form-input" rows="8" placeholder="Scrivi il contenuto della news..." required></textarea>
+                <label for="news-content">Contenuto *</label>
+                <textarea id="news-content" class="form-input" rows="8" required></textarea>
               </div>
               <div class="form-actions">
-                <button type="submit" class="btn btn-primary" id="submit-btn">Pubblica news</button>
-                <button type="button" class="btn btn-secondary" id="cancel-btn" style="display:none">Annulla modifica</button>
+                <button type="submit" class="btn btn-primary" id="submit-btn">Pubblica</button>
+                <button type="button" class="btn btn-secondary" id="cancel-btn" style="display:none">Annulla</button>
               </div>
             </form>
           </div>
 
-          <!-- List -->
           <div class="admin-list">
             <h3>News pubblicate</h3>
             <div id="news-list"></div>
@@ -81,99 +98,49 @@
         </div>
       </div>
     </div>
-  </section>
+  </main>
+
+  <footer class="site-footer" style="padding:1.5rem 0">
+    <div class="container">
+      <div class="footer-bottom" style="border:none;padding:0">
+        <p>© 2026 CyberGuard - MAST Summer School 2026</p>
+      </div>
+    </div>
+  </footer>
 
   <style>
-    .login-box {
-      max-width: 420px;
-      margin: 0 auto;
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg);
-      padding: 3rem;
-      text-align: center;
-      box-shadow: var(--shadow-lg);
-    }
-    .login-icon {
-      width: 64px; height: 64px;
-      background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 1.5rem;
-      color: var(--white);
-    }
-    .login-icon svg { width: 32px; height: 32px; }
-    .login-box h2 { font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--gray-900); }
-    .login-box > p { color: var(--gray-500); margin-bottom: 2rem; }
-    .login-error { color: var(--red); font-size: 0.9rem; min-height: 1.5rem; margin-bottom: 0.5rem; }
+    .login-box { max-width: 420px; margin: 2rem auto; background: var(--white); border: 1px solid var(--gray-200); padding: 2rem; border-radius: var(--radius); }
+    .login-header { text-align: center; margin-bottom: 2rem; }
+    .login-header svg { width: 48px; height: 48px; color: var(--primary); margin-bottom: 1rem; }
+    .login-header h1 { font-size: 1.5rem; color: var(--gray-900); margin-bottom: 0.5rem; }
+    .login-header p { color: var(--gray-500); font-size: 0.95rem; }
+    .login-error { color: var(--danger); font-size: 0.9rem; margin-bottom: 1rem; min-height: 1.2rem; }
 
-    .admin-header {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      margin-bottom: 2.5rem;
-    }
-
-    .admin-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
-      align-items: start;
-    }
-
-    .admin-form {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius);
-      padding: 2rem;
-      position: sticky; top: 100px;
-    }
-    .admin-form h3 { margin-bottom: 1.5rem; font-size: 1.25rem; color: var(--gray-900); }
+    .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .admin-form { background: var(--white); border: 1px solid var(--gray-200); padding: 1.5rem; border-radius: var(--radius); position: sticky; top: 1rem; }
+    .admin-form h3 { margin-bottom: 1.25rem; font-size: 1.1rem; color: var(--gray-900); padding-bottom: 0.75rem; border-bottom: 1px solid var(--gray-200); }
     .form-actions { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
-    .btn-secondary {
-      background: var(--gray-100);
-      color: var(--gray-700);
-      border: 1px solid var(--gray-300);
-    }
-    .btn-secondary:hover { background: var(--gray-200); }
+    .btn-secondary { background: var(--gray-100); color: var(--gray-700); }
 
-    .admin-list { background: var(--gray-50); border-radius: var(--radius); padding: 1.5rem; }
-    .admin-list h3 { margin-bottom: 1rem; font-size: 1.1rem; color: var(--gray-900); }
-
-    .news-item {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius-sm);
-      padding: 1.25rem;
-      margin-bottom: 0.75rem;
-    }
+    .admin-list { background: var(--gray-50); padding: 1.25rem; border-radius: var(--radius); }
+    .admin-list h3 { margin-bottom: 1rem; font-size: 1rem; color: var(--gray-900); }
+    .news-item { background: var(--white); border: 1px solid var(--gray-200); padding: 1rem; margin-bottom: 0.75rem; border-radius: var(--radius); }
     .news-item:last-child { margin-bottom: 0; }
-    .news-item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.5rem; }
-    .news-item h4 { font-size: 1rem; color: var(--gray-900); line-height: 1.4; }
-    .news-item-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
-    .news-item p { font-size: 0.85rem; color: var(--gray-500); line-height: 1.6; margin-bottom: 0.5rem; }
+    .news-item-header { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 0.5rem; }
+    .news-item h4 { font-size: 0.95rem; color: var(--gray-900); }
+    .news-item-actions { display: flex; gap: 0.5rem; }
+    .news-item p { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 0.35rem; }
     .news-item small { font-size: 0.75rem; color: var(--gray-400); }
+    .btn-icon { width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+    .btn-edit { background: var(--primary-light); color: var(--primary); }
+    .btn-delete { background: #fce4e4; color: var(--danger); }
+    .empty-state { text-align: center; padding: 2rem; color: var(--gray-400); }
 
-    .btn-icon {
-      width: 36px; height: 36px;
-      padding: 0;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: var(--radius-sm);
-    }
-    .btn-edit { background: var(--blue-50); color: var(--blue-600); border: 1px solid var(--blue-200); }
-    .btn-edit:hover { background: var(--blue-100); }
-    .btn-delete { background: #fee2e2; color: var(--red); border: 1px solid #fecaca; }
-    .btn-delete:hover { background: #fecaca; }
-
-    .empty-state {
-      text-align: center; padding: 2rem; color: var(--gray-400);
-    }
-
-    @media (max-width: 900px) {
-      .admin-grid { grid-template-columns: 1fr; }
-      .admin-form { position: static; }
-    }
+    @media (max-width: 900px) { .admin-grid { grid-template-columns: 1fr; } .admin-form { position: static; } }
   </style>
 
   <script>
     let loggedIn = false
-    let editingId = null
 
     async function checkAuth() {
       try {
@@ -181,15 +148,13 @@
         const data = await res.json()
         loggedIn = data.loggedIn
         updateUI()
-      } catch (err) {
-        console.error('Errore auth:', err)
-      }
+      } catch (err) { console.error('Errore auth:', err) }
     }
 
     function updateUI() {
       document.getElementById('login-box').style.display = loggedIn ? 'none' : 'block'
       document.getElementById('admin-panel').style.display = loggedIn ? 'block' : 'none'
-      document.getElementById('logout-btn').style.display = loggedIn ? 'inline-flex' : 'none'
+      document.getElementById('logout-btn').style.display = loggedIn ? 'inline' : 'none'
       if (loggedIn) loadNews()
       lucide.createIcons()
     }
@@ -199,23 +164,12 @@
       const username = document.getElementById('username').value
       const password = document.getElementById('password').value
       const errorEl = document.getElementById('login-error')
-
       try {
-        const res = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
-        })
+        const res = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) })
         const data = await res.json()
-        if (data.ok) {
-          loggedIn = true
-          updateUI()
-        } else {
-          errorEl.textContent = 'Credenziali errate. Riprova.'
-        }
-      } catch (err) {
-        errorEl.textContent = 'Errore di connessione'
-      }
+        if (data.ok) { loggedIn = true; updateUI() }
+        else errorEl.textContent = 'Credenziali errate'
+      } catch { errorEl.textContent = 'Errore di connessione' }
     })
 
     document.getElementById('logout-btn').addEventListener('click', async e => {
@@ -230,18 +184,16 @@
         const res = await fetch('/api/news')
         const news = await res.json()
         const list = document.getElementById('news-list')
-
         if (news.length === 0) {
-          list.innerHTML = '<div class="empty-state"><i data-lucide="inbox" style="width:48px;height:48px;margin-bottom:1rem;opacity:0.5"></i><p>Nessuna news pubblicata.<br>Usa il form per crearne una.</p></div>'
-          lucide.createIcons()
+          list.innerHTML = '<div class="empty-state">Nessuna news pubblicata</div>'
         } else {
           list.innerHTML = news.map(n => `
-            <div class="news-item" data-id="${n.id}">
+            <div class="news-item">
               <div class="news-item-header">
                 <h4>${escapeHtml(n.title)}</h4>
                 <div class="news-item-actions">
-                  <button class="btn btn-icon btn-edit" onclick="editNews(${n.id})" title="Modifica"><i data-lucide="pencil"></i></button>
-                  <button class="btn btn-icon btn-delete" onclick="deleteNews(${n.id})" title="Elimina"><i data-lucide="trash-2"></i></button>
+                  <button class="btn btn-icon btn-edit" onclick="editNews(${n.id})"><i data-lucide="pencil"></i></button>
+                  <button class="btn btn-icon btn-delete" onclick="deleteNews(${n.id})"><i data-lucide="trash-2"></i></button>
                 </div>
               </div>
               <p>${escapeHtml(n.excerpt || '')}</p>
@@ -250,83 +202,52 @@
           `).join('')
           lucide.createIcons()
         }
-      } catch (err) {
-        console.error('Errore caricamento news:', err)
-      }
+      } catch (err) { console.error('Errore caricamento news:', err) }
     }
 
-    function escapeHtml(text) {
-      if (!text) return ''
-      const div = document.createElement('div')
-      div.textContent = text
-      return div.innerHTML
-    }
+    function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML }
 
     document.getElementById('news-form').addEventListener('submit', async e => {
       e.preventDefault()
       const id = document.getElementById('news-id').value
       const title = document.getElementById('news-title').value
       const content = document.getElementById('news-content').value
-
       try {
         const url = id ? `/api/admin/news/${id}` : '/api/admin/news'
         const method = id ? 'PUT' : 'POST'
-
-        const res = await fetch(url, {
-          method,
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, content })
-        })
-
-        if (res.ok) {
-          resetForm()
-          loadNews()
-        }
-      } catch (err) {
-        console.error('Errore salvataggio:', err)
-      }
+        const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title, content }) })
+        if (res.ok) { resetForm(); loadNews() }
+      } catch (err) { console.error('Errore salvataggio:', err) }
     })
 
     async function editNews(id) {
       try {
         const res = await fetch(`/api/news/${id}`)
         const news = await res.json()
-
-        editingId = id
         document.getElementById('news-id').value = id
         document.getElementById('news-title').value = news.title
         document.getElementById('news-content').value = news.content
         document.getElementById('form-title').textContent = 'Modifica news'
-        document.getElementById('submit-btn').textContent = 'Salva modifiche'
+        document.getElementById('submit-btn').textContent = 'Salva'
         document.getElementById('cancel-btn').style.display = 'inline-flex'
-
-        document.querySelector('.admin-form').scrollIntoView({ behavior: 'smooth', block: 'start' })
-      } catch (err) {
-        console.error('Errore caricamento news:', err)
-      }
+      } catch (err) { console.error('Errore caricamento news:', err) }
     }
 
     function resetForm() {
-      editingId = null
       document.getElementById('news-id').value = ''
       document.getElementById('news-title').value = ''
       document.getElementById('news-content').value = ''
       document.getElementById('form-title').textContent = 'Nuova news'
-      document.getElementById('submit-btn').textContent = 'Pubblica news'
+      document.getElementById('submit-btn').textContent = 'Pubblica'
       document.getElementById('cancel-btn').style.display = 'none'
     }
 
     document.getElementById('cancel-btn').addEventListener('click', resetForm)
 
     async function deleteNews(id) {
-      if (!confirm('Sei sicuro di voler eliminare questa news?')) return
-      try {
-        await fetch(`/api/admin/news/${id}`, { method: 'DELETE' })
-        if (editingId === id) resetForm()
-        loadNews()
-      } catch (err) {
-        console.error('Errore eliminazione:', err)
-      }
+      if (!confirm('Eliminare questa news?')) return
+      try { await fetch(`/api/admin/news/${id}`, { method: 'DELETE' }); loadNews() }
+      catch (err) { console.error('Errore eliminazione:', err) }
     }
 
     document.addEventListener('DOMContentLoaded', checkAuth)

@@ -41,43 +41,10 @@ app.use(session({
 const ADMIN_USER = 'admin'
 const ADMIN_PASS = '1234'
 
-const features = [
-  { icon: 'brain', title: 'Quiz interattivi', desc: 'Domande su phishing, malware, password e social engineering.' },
-  { icon: 'book-open', title: 'Moduli formativi', desc: 'Contenuti chiari e aggiornati sulle ultime minacce.' },
-  { icon: 'bar-chart-2', title: 'Progressi personali', desc: 'Traccia i tuoi miglioramenti nel tempo.' },
-  { icon: 'award', title: 'Badge e certificati', desc: 'Riconoscimenti per completare i percorsi.' },
-  { icon: 'users', title: 'Modalità classe', desc: 'Quiz per gruppi e sfide tra studenti.' },
-  { icon: 'smartphone', title: 'Mobile friendly', desc: 'Impara ovunque, dallo smartphone.' },
-]
-
-const team = [
-  { name: 'Marco R.', role: 'Backend & API', initials: 'MR' },
-  { name: 'Giulia T.', role: 'Frontend & UI', initials: 'GT' },
-  { name: 'Alessandro B.', role: 'Content & Quiz', initials: 'AB' },
-  { name: 'Sofia L.', role: 'Design', initials: 'SL' },
-]
-
-const quiz = [
-  {
-    question: 'Ricevi un\'email dalla tua banca che ti chiede di cliccare un link per verificare il conto. Cosa fai?',
-    options: [
-      'Clicco subito il link',
-      'Verifico il mittente e vado sul sito ufficiale manualmente',
-      'Rispondo chiedendo info',
-      'Inoltro a tutti i contatti'
-    ],
-    correct: 1
-  }
-]
-
 function requireAuth(req, res, next) {
   if (req.session.loggedIn) return next()
   res.status(401).json({ error: 'Non autorizzato' })
 }
-
-app.get('/api/features', (req, res) => res.json(features))
-app.get('/api/team', (req, res) => res.json(team))
-app.get('/api/quiz', (req, res) => res.json(quiz[0]))
 
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body
@@ -100,7 +67,7 @@ app.get('/api/auth/check', (req, res) => {
 
 app.get('/api/news', async (req, res) => {
   try {
-    const result = await pool.query('SELECT id, title, LEFT(content, 150) as excerpt, created_at FROM news ORDER BY created_at DESC')
+    const result = await pool.query('SELECT id, title, LEFT(content, 200) as excerpt, created_at FROM news ORDER BY created_at DESC')
     res.json(result.rows)
   } catch (err) {
     res.status(500).json({ error: 'Errore database' })
@@ -124,6 +91,20 @@ app.post('/api/admin/news', requireAuth, async (req, res) => {
   if (!title || !content) return res.status(400).json({ error: 'Titolo e contenuto obbligatori' })
   try {
     const result = await pool.query('INSERT INTO news (title, content) VALUES ($1, $2) RETURNING *', [title, content])
+    res.json(result.rows[0])
+  } catch (err) {
+    res.status(500).json({ error: 'Errore database' })
+  }
+})
+
+app.put('/api/admin/news/:id', requireAuth, async (req, res) => {
+  const { title, content } = req.body
+  if (!title || !content) return res.status(400).json({ error: 'Titolo e contenuto obbligatori' })
+  try {
+    const result = await pool.query('UPDATE news SET title = $1, content = $2 WHERE id = $3 RETURNING *', [title, content, req.params.id])
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'News non trovata' })
+    }
     res.json(result.rows[0])
   } catch (err) {
     res.status(500).json({ error: 'Errore database' })

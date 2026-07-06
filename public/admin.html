@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - CyberGuard</title>
   <link rel="stylesheet" href="/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
@@ -17,45 +17,67 @@
       </a>
       <nav class="nav">
         <a href="/" class="nav-link">Torna al sito</a>
-        <a href="#" class="nav-link" id="logout-btn" style="display:none">Logout</a>
+        <a href="#" class="nav-link" id="logout-btn" style="display:none"><i data-lucide="log-out"></i> Logout</a>
       </nav>
     </div>
   </header>
 
-  <section class="section" style="min-height:80vh; padding-top:8rem;">
+  <section class="section" style="min-height:85vh; padding-top:8rem;">
     <div class="container">
-      <!-- Login form -->
+      <!-- Login -->
       <div id="login-box" class="login-box">
         <div class="login-icon"><i data-lucide="lock"></i></div>
         <h2>Area riservata</h2>
-        <p>Inserisci le credenziali per accedere</p>
+        <p>Inserisci le credenziali per accedere al pannello admin</p>
         <form id="login-form">
-          <input type="text" placeholder="Username" id="username" class="form-input" required>
-          <input type="password" placeholder="Password" id="password" class="form-input" required>
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="username" class="form-input" required autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" class="form-input" required autocomplete="current-password">
+          </div>
           <div id="login-error" class="login-error"></div>
-          <button type="submit" class="btn btn-primary" style="width:100%">Accedi</button>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%">Accedi</button>
         </form>
       </div>
 
-      <!-- Admin panel -->
+      <!-- Admin Panel -->
       <div id="admin-panel" style="display:none">
-        <div class="section-header">
-          <h2 class="section-title">Pannello Admin</h2>
-          <p class="section-desc">Gestisci le news del sito.</p>
+        <div class="admin-header">
+          <div>
+            <span class="section-label">Pannello amministrativo</span>
+            <h1 class="section-title">Gestione contenuti</h1>
+          </div>
         </div>
 
-        <div class="admin-form">
-          <h3>Nuova news</h3>
-          <form id="news-form">
-            <input type="text" placeholder="Titolo" id="news-title" class="form-input" required>
-            <textarea placeholder="Contenuto" id="news-content" class="form-input" rows="4" required></textarea>
-            <button type="submit" class="btn btn-primary">Pubblica</button>
-          </form>
-        </div>
+        <div class="admin-grid">
+          <!-- Form -->
+          <div class="admin-form">
+            <h3 id="form-title">Nuova news</h3>
+            <form id="news-form">
+              <input type="hidden" id="news-id">
+              <div class="form-group">
+                <label>Titolo</label>
+                <input type="text" id="news-title" class="form-input" placeholder="Titolo della news" required>
+              </div>
+              <div class="form-group">
+                <label>Contenuto</label>
+                <textarea id="news-content" class="form-input" rows="8" placeholder="Scrivi il contenuto della news..." required></textarea>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="submit-btn">Pubblica news</button>
+                <button type="button" class="btn btn-secondary" id="cancel-btn" style="display:none">Annulla modifica</button>
+              </div>
+            </form>
+          </div>
 
-        <div class="admin-list">
-          <h3>News pubblicate</h3>
-          <div id="news-list"></div>
+          <!-- List -->
+          <div class="admin-list">
+            <h3>News pubblicate</h3>
+            <div id="news-list"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -63,54 +85,95 @@
 
   <style>
     .login-box {
-      max-width: 400px;
+      max-width: 420px;
       margin: 0 auto;
       background: var(--white);
       border: 1px solid var(--gray-200);
-      border-radius: var(--radius);
-      padding: 2.5rem;
+      border-radius: var(--radius-lg);
+      padding: 3rem;
       text-align: center;
+      box-shadow: var(--shadow-lg);
     }
     .login-icon {
-      width: 56px; height: 56px;
-      background: var(--blue-100);
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 1.5rem;
-      color: var(--blue-600);
+      color: var(--white);
     }
-    .login-icon svg { width: 28px; height: 28px; }
-    .login-box h2 { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--gray-900); }
-    .login-box p { color: var(--gray-500); margin-bottom: 1.5rem; }
-    #login-form { display: flex; flex-direction: column; gap: 0.75rem; }
-    .login-error { color: var(--red); font-size: 0.875rem; min-height: 1.2rem; }
+    .login-icon svg { width: 32px; height: 32px; }
+    .login-box h2 { font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--gray-900); }
+    .login-box > p { color: var(--gray-500); margin-bottom: 2rem; }
+    .login-error { color: var(--red); font-size: 0.9rem; min-height: 1.5rem; margin-bottom: 0.5rem; }
+
+    .admin-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 2.5rem;
+    }
+
+    .admin-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+      align-items: start;
+    }
+
     .admin-form {
       background: var(--white);
       border: 1px solid var(--gray-200);
       border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+      padding: 2rem;
+      position: sticky; top: 100px;
     }
-    .admin-form h3 { margin-bottom: 1rem; font-size: 1.1rem; }
-    #news-form { display: flex; flex-direction: column; gap: 0.75rem; }
-    .admin-list h3 { margin-bottom: 1rem; font-size: 1.1rem; }
+    .admin-form h3 { margin-bottom: 1.5rem; font-size: 1.25rem; color: var(--gray-900); }
+    .form-actions { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+    .btn-secondary {
+      background: var(--gray-100);
+      color: var(--gray-700);
+      border: 1px solid var(--gray-300);
+    }
+    .btn-secondary:hover { background: var(--gray-200); }
+
+    .admin-list { background: var(--gray-50); border-radius: var(--radius); padding: 1.5rem; }
+    .admin-list h3 { margin-bottom: 1rem; font-size: 1.1rem; color: var(--gray-900); }
+
     .news-item {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      padding: 1rem; background: var(--gray-50); border-radius: var(--radius-sm);
-      margin-bottom: 0.75rem; gap: 1rem;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      margin-bottom: 0.75rem;
     }
-    .news-item-content h4 { font-size: 1rem; margin-bottom: 0.25rem; }
-    .news-item-content p { font-size: 0.875rem; color: var(--gray-500); }
-    .news-item-content small { color: var(--gray-400); font-size: 0.75rem; }
-    .btn-delete {
-      background: var(--red); color: white; border: none;
-      padding: 0.4rem 0.75rem; border-radius: var(--radius-sm);
-      cursor: pointer; font-size: 0.8rem; font-weight: 500;
+    .news-item:last-child { margin-bottom: 0; }
+    .news-item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.5rem; }
+    .news-item h4 { font-size: 1rem; color: var(--gray-900); line-height: 1.4; }
+    .news-item-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+    .news-item p { font-size: 0.85rem; color: var(--gray-500); line-height: 1.6; margin-bottom: 0.5rem; }
+    .news-item small { font-size: 0.75rem; color: var(--gray-400); }
+
+    .btn-icon {
+      width: 36px; height: 36px;
+      padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-sm);
+    }
+    .btn-edit { background: var(--blue-50); color: var(--blue-600); border: 1px solid var(--blue-200); }
+    .btn-edit:hover { background: var(--blue-100); }
+    .btn-delete { background: #fee2e2; color: var(--red); border: 1px solid #fecaca; }
+    .btn-delete:hover { background: #fecaca; }
+
+    .empty-state {
+      text-align: center; padding: 2rem; color: var(--gray-400);
+    }
+
+    @media (max-width: 900px) {
+      .admin-grid { grid-template-columns: 1fr; }
+      .admin-form { position: static; }
     }
   </style>
 
   <script>
     let loggedIn = false
+    let editingId = null
 
     async function checkAuth() {
       try {
@@ -126,9 +189,9 @@
     function updateUI() {
       document.getElementById('login-box').style.display = loggedIn ? 'none' : 'block'
       document.getElementById('admin-panel').style.display = loggedIn ? 'block' : 'none'
-      document.getElementById('logout-btn').style.display = loggedIn ? 'inline' : 'none'
+      document.getElementById('logout-btn').style.display = loggedIn ? 'inline-flex' : 'none'
       if (loggedIn) loadNews()
-      if (typeof lucide !== 'undefined') lucide.createIcons()
+      lucide.createIcons()
     }
 
     document.getElementById('login-form').addEventListener('submit', async e => {
@@ -148,7 +211,7 @@
           loggedIn = true
           updateUI()
         } else {
-          errorEl.textContent = 'Credenziali errate'
+          errorEl.textContent = 'Credenziali errate. Riprova.'
         }
       } catch (err) {
         errorEl.textContent = 'Errore di connessione'
@@ -167,22 +230,25 @@
         const res = await fetch('/api/news')
         const news = await res.json()
         const list = document.getElementById('news-list')
+
         if (news.length === 0) {
-          list.innerHTML = '<p style="color:var(--gray-400)">Nessuna news pubblicata.</p>'
+          list.innerHTML = '<div class="empty-state"><i data-lucide="inbox" style="width:48px;height:48px;margin-bottom:1rem;opacity:0.5"></i><p>Nessuna news pubblicata.<br>Usa il form per crearne una.</p></div>'
+          lucide.createIcons()
         } else {
           list.innerHTML = news.map(n => `
-            <div class="news-item">
-              <div class="news-item-content">
+            <div class="news-item" data-id="${n.id}">
+              <div class="news-item-header">
                 <h4>${escapeHtml(n.title)}</h4>
-                <p>${escapeHtml(n.content)}</p>
-                <small>${new Date(n.created_at).toLocaleString('it-IT')}</small>
+                <div class="news-item-actions">
+                  <button class="btn btn-icon btn-edit" onclick="editNews(${n.id})" title="Modifica"><i data-lucide="pencil"></i></button>
+                  <button class="btn btn-icon btn-delete" onclick="deleteNews(${n.id})" title="Elimina"><i data-lucide="trash-2"></i></button>
+                </div>
               </div>
-              <button class="btn-delete" data-id="${n.id}">Elimina</button>
+              <p>${escapeHtml(n.excerpt || '')}</p>
+              <small>${new Date(n.created_at).toLocaleString('it-IT')}</small>
             </div>
           `).join('')
-          list.querySelectorAll('.btn-delete').forEach(btn => {
-            btn.addEventListener('click', () => deleteNews(btn.dataset.id))
-          })
+          lucide.createIcons()
         }
       } catch (err) {
         console.error('Errore caricamento news:', err)
@@ -190,6 +256,7 @@
     }
 
     function escapeHtml(text) {
+      if (!text) return ''
       const div = document.createElement('div')
       div.textContent = text
       return div.innerHTML
@@ -197,29 +264,65 @@
 
     document.getElementById('news-form').addEventListener('submit', async e => {
       e.preventDefault()
+      const id = document.getElementById('news-id').value
       const title = document.getElementById('news-title').value
       const content = document.getElementById('news-content').value
 
       try {
-        const res = await fetch('/api/admin/news', {
-          method: 'POST',
+        const url = id ? `/api/admin/news/${id}` : '/api/admin/news'
+        const method = id ? 'PUT' : 'POST'
+
+        const res = await fetch(url, {
+          method,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ title, content })
         })
+
         if (res.ok) {
-          document.getElementById('news-title').value = ''
-          document.getElementById('news-content').value = ''
+          resetForm()
           loadNews()
         }
       } catch (err) {
-        console.error('Errore pubblicazione:', err)
+        console.error('Errore salvataggio:', err)
       }
     })
 
+    async function editNews(id) {
+      try {
+        const res = await fetch(`/api/news/${id}`)
+        const news = await res.json()
+
+        editingId = id
+        document.getElementById('news-id').value = id
+        document.getElementById('news-title').value = news.title
+        document.getElementById('news-content').value = news.content
+        document.getElementById('form-title').textContent = 'Modifica news'
+        document.getElementById('submit-btn').textContent = 'Salva modifiche'
+        document.getElementById('cancel-btn').style.display = 'inline-flex'
+
+        document.querySelector('.admin-form').scrollIntoView({ behavior: 'smooth', block: 'start' })
+      } catch (err) {
+        console.error('Errore caricamento news:', err)
+      }
+    }
+
+    function resetForm() {
+      editingId = null
+      document.getElementById('news-id').value = ''
+      document.getElementById('news-title').value = ''
+      document.getElementById('news-content').value = ''
+      document.getElementById('form-title').textContent = 'Nuova news'
+      document.getElementById('submit-btn').textContent = 'Pubblica news'
+      document.getElementById('cancel-btn').style.display = 'none'
+    }
+
+    document.getElementById('cancel-btn').addEventListener('click', resetForm)
+
     async function deleteNews(id) {
-      if (!confirm('Eliminare questa news?')) return
+      if (!confirm('Sei sicuro di voler eliminare questa news?')) return
       try {
         await fetch(`/api/admin/news/${id}`, { method: 'DELETE' })
+        if (editingId === id) resetForm()
         loadNews()
       } catch (err) {
         console.error('Errore eliminazione:', err)

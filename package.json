@@ -1,0 +1,13 @@
+{
+  "name": "mast-summer-school-2026-02",
+  "version": "1.0.0",
+  "description": "MAST Summer School 2026 - Cyberworld Track",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

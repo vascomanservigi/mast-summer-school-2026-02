@@ -28,12 +28,14 @@ function createTeamCard(item) {
 
 function createNewsCard(item) {
   const date = new Date(item.created_at).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
+  const excerpt = item.excerpt ? item.excerpt + (item.excerpt.length >= 150 ? '...' : '') : ''
   return `
-    <div class="news-card">
+    <a href="/news/${item.id}" class="news-card">
       <div class="news-date">${date}</div>
       <h3>${escapeHtml(item.title)}</h3>
-      <p>${escapeHtml(item.content)}</p>
-    </div>
+      <p>${escapeHtml(excerpt)}</p>
+      <span class="news-read">Leggi di più →</span>
+    </a>
   `
 }
 

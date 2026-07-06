@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News - CyberGuard</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon"><i data-lucide="shield-check"></i></div>
+        <span>CyberGuard</span>
+      </a>
+      <nav class="nav">
+        <a href="/#news" class="nav-link">News</a>
+        <a href="/#about" class="nav-link">Il progetto</a>
+        <a href="/#features" class="nav-link">Funzionalità</a>
+        <a href="/#team" class="nav-link">Team</a>
+        <a href="/#demo" class="nav-link">Demo</a>
+        <a href="/admin" class="nav-link nav-admin"><i data-lucide="lock" style="width:14px;height:14px"></i> Admin</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <article class="article">
+    <div class="container">
+      <div class="article-header" id="article-header">
+        <a href="/#news" class="article-back"><i data-lucide="arrow-left"></i> Torna alle news</a>
+        <div class="article-date" id="article-date"></div>
+        <h1 class="article-title" id="article-title"></h1>
+      </div>
+      <div class="article-content" id="article-content"></div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-info">
+        <div class="logo"><div class="logo-icon"><i data-lucide="shield-check"></i></div><span>CyberGuard</span></div>
+        <p>Progetto realizzato durante il MAST Summer School 2026</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.academy.mast.org/summer-school-2026" target="_blank">MAST Summer School</a>
+        <a href="mailto:cyberguard@example.com">Contattaci</a>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    .article { padding: 6rem 0; min-height: 60vh; }
+    .article-header { max-width: 720px; margin-bottom: 3rem; }
+    .article-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--blue-600); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .article-back:hover { text-decoration: underline; }
+    .article-back svg { width: 18px; height: 18px; }
+    .article-date {
+      font-size: 0.85rem; color: var(--gray-500);
+      margin-bottom: 0.75rem;
+    }
+    .article-title {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700; color: var(--gray-900);
+      line-height: 1.2;
+    }
+    .article-content {
+      max-width: 720px;
+      font-size: 1.1rem; line-height: 1.8;
+      color: var(--gray-600);
+    }
+    .article-content p { margin-bottom: 1.5rem; }
+    .article-loading { text-align: center; padding: 4rem; color: var(--gray-400); }
+    .article-error { text-align: center; padding: 4rem; }
+    .article-error h2 { color: var(--gray-900); margin-bottom: 0.5rem; }
+    .article-error p { color: var(--gray-500); margin-bottom: 1.5rem; }
+  </style>
+
+  <script>
+    async function loadNews() {
+      const id = window.location.pathname.split('/').pop()
+      const titleEl = document.getElementById('article-title')
+      const dateEl = document.getElementById('article-date')
+      const contentEl = document.getElementById('article-content')
+
+      try {
+        const res = await fetch(`/api/news/${id}`)
+        if (!res.ok) throw new Error('Not found')
+        const news = await res.json()
+
+        document.title = `${news.title} - CyberGuard`
+        titleEl.textContent = news.title
+        dateEl.textContent = new Date(news.created_at).toLocaleDateString('it-IT', {
+          weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+        })
+        contentEl.innerHTML = news.content.split('\n').map(p => `<p>${escapeHtml(p)}</p>`).join('')
+        lucide.createIcons()
+      } catch (err) {
+        document.title = 'News non trovata - CyberGuard'
+        titleEl.textContent = 'News non trovata'
+        contentEl.innerHTML = `
+          <div class="article-error">
+            <p>La news che cerchi non esiste o è stata rimossa.</p>
+            <a href="/#news" class="btn btn-primary">Torna alle news</a>
+          </div>
+        `
+      }
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div')
+      div.textContent = text
+      return div.innerHTML
+    }
+
+    document.addEventListener('DOMContentLoaded', loadNews)
+    document.querySelector('.nav-toggle').addEventListener('click', () => {
+      document.querySelector('.nav').classList.toggle('open')
+    })
+  </script>
+</body>
+</html>

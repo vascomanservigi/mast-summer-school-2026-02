@@ -100,8 +100,20 @@ app.get('/api/auth/check', (req, res) => {
 
 app.get('/api/news', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM news ORDER BY created_at DESC')
+    const result = await pool.query('SELECT id, title, LEFT(content, 150) as excerpt, created_at FROM news ORDER BY created_at DESC')
     res.json(result.rows)
+  } catch (err) {
+    res.status(500).json({ error: 'Errore database' })
+  }
+})
+
+app.get('/api/news/:id', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM news WHERE id = $1', [req.params.id])
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'News non trovata' })
+    }
+    res.json(result.rows[0])
   } catch (err) {
     res.status(500).json({ error: 'Errore database' })
   }
@@ -129,6 +141,10 @@ app.delete('/api/admin/news/:id', requireAuth, async (req, res) => {
 
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'))
+})
+
+app.get('/news/:id', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'news-detail.html'))
 })
 
 app.get('*', (req, res) => {

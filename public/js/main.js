@@ -7,7 +7,7 @@ async function loadJSON(url) {
 function createCard(item) {
   return `
     <div class="card">
-      <div class="card-icon">${item.icon}</div>
+      <div class="card-icon"><i data-lucide="${item.icon}"></i></div>
       <h3>${item.title}</h3>
       <p>${item.desc}</p>
     </div>
@@ -29,11 +29,17 @@ function createTimelineItem(item) {
 function createToolCard(item) {
   return `
     <div class="tool-card">
-      <div class="tool-icon">${item.icon}</div>
+      <div class="card-icon"><i data-lucide="${item.icon}"></i></div>
       <h3>${item.name}</h3>
       <p>${item.desc}</p>
     </div>
   `
+}
+
+function renderIcons() {
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons()
+  }
 }
 
 async function init() {
@@ -46,6 +52,7 @@ async function init() {
     document.getElementById('program-cards').innerHTML = program.map(createCard).join('')
     document.getElementById('timeline').innerHTML = schedule.map(createTimelineItem).join('')
     document.getElementById('tools-grid').innerHTML = tools.map(createToolCard).join('')
+    renderIcons()
   } catch (err) {
     console.error('Errore nel caricamento dei dati:', err)
   }
@@ -81,7 +88,7 @@ document.getElementById('contact-form').addEventListener('submit', async e => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
-    btn.textContent = 'Inviato ✓'
+    btn.textContent = 'Inviato'
     e.target.reset()
     setTimeout(() => { btn.textContent = 'Invia messaggio'; btn.disabled = false }, 2000)
   } catch {

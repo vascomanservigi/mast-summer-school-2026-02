@@ -10,16 +10,16 @@ app.use(express.static(path.join(__dirname, 'public')))
 const messages = []
 
 const program = [
-  { icon: '🌐', title: 'HTML & CSS', desc: 'Struttura e stile delle pagine web. Layout responsive, animazioni e best practices.' },
-  { icon: '⚡', title: 'JavaScript & Node.js', desc: 'Dal frontend al backend: JS lato client e server con Node.js ed Express.' },
-  { icon: '🛡️', title: 'Cybersecurity', desc: 'OWASP Top 10, crittografia, attacchi comuni e come difendersi.' },
-  { icon: '🗄️', title: 'Database & API', desc: 'Progettazione di database REST API e integrazione con il frontend.' },
-  { icon: '🚀', title: 'DevOps & Deploy', desc: 'Git, CI/CD, deployment su Render e cloud fundamentals.' },
-  { icon: '🤖', title: 'AI & Web', desc: 'Integrazione di LLM e AI nei siti web. Il futuro del web development.' },
+  { icon: 'globe', title: 'HTML & CSS', desc: 'Struttura e stile delle pagine web. Layout responsive, animazioni e best practices.' },
+  { icon: 'zap', title: 'JavaScript & Node.js', desc: 'Dal frontend al backend: JS lato client e server con Node.js ed Express.' },
+  { icon: 'shield', title: 'Cybersecurity', desc: 'OWASP Top 10, crittografia, attacchi comuni e come difendersi.' },
+  { icon: 'database', title: 'Database & API', desc: 'Progettazione di database REST API e integrazione con il frontend.' },
+  { icon: 'rocket', title: 'DevOps & Deploy', desc: 'Git, CI/CD, deployment su Render e cloud fundamentals.' },
+  { icon: 'cpu', title: 'AI & Web', desc: 'Integrazione di LLM e AI nei siti web. Il futuro del web development.' },
 ]
 
 const schedule = [
-  { day: 1, title: 'Benvenuti nel Cyberworld', desc: 'Presentazione del corso, setup dell\'ambiente di sviluppo e primi passi con HTML.' },
+  { day: 1, title: 'Benvenuti nel Cyberworld', desc: 'Presentazione del corso, setup ambiente e primi passi con HTML.' },
   { day: 2, title: 'CSS & Design', desc: 'Styling avanzato, Flexbox, Grid, animazioni e design responsivo.' },
   { day: 3, title: 'JavaScript Fundamentals', desc: 'Variabili, funzioni, DOM manipulation ed eventi.' },
   { day: 4, title: 'Node.js & Express', desc: 'Server-side programming, routing e middleware.' },
@@ -30,12 +30,12 @@ const schedule = [
 ]
 
 const tools = [
-  { icon: '⚛️', name: 'VS Code', desc: 'Editor di codice' },
-  { icon: '🔄', name: 'Git & GitHub', desc: 'Version control' },
-  { icon: '📦', name: 'Node.js', desc: 'Runtime JavaScript' },
-  { icon: '🎨', name: 'Figma', desc: 'Design UI/UX' },
-  { icon: '🔍', name: 'OWASP ZAP', desc: 'Security testing' },
-  { icon: '☁️', name: 'Render', desc: 'Cloud deployment' },
+  { icon: 'code-2', name: 'VS Code', desc: 'Editor di codice' },
+  { icon: 'git-branch', name: 'Git & GitHub', desc: 'Version control' },
+  { icon: 'server', name: 'Node.js', desc: 'Runtime JavaScript' },
+  { icon: 'figma', name: 'Figma', desc: 'Design UI/UX' },
+  { icon: 'search', name: 'OWASP ZAP', desc: 'Security testing' },
+  { icon: 'cloud', name: 'Render', desc: 'Cloud deployment' },
 ]
 
 app.get('/api/program', (req, res) => res.json(program))

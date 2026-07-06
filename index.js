@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const session = require('express-session')
 const { Pool } = require('pg')
 
 const app = express()
@@ -15,15 +16,13 @@ const pool = new Pool({
 async function initDB() {
   try {
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS visits (
-        id INTEGER PRIMARY KEY DEFAULT 1,
-        count INTEGER DEFAULT 0
+      CREATE TABLE IF NOT EXISTS news (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        content TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT NOW()
       )
     `)
-    const result = await pool.query('SELECT count FROM visits WHERE id = 1')
-    if (result.rows.length === 0) {
-      await pool.query('INSERT INTO visits (id, count) VALUES (1, 0)')
-    }
     console.log('Database inizializzato')
   } catch (err) {
     console.error('Errore database:', err.message)
@@ -32,8 +31,15 @@ async function initDB() {
 
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(session({
+  secret: 'cyberguard-secret-key-2026',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }
+}))
 
-const messages = []
+const ADMIN_USER = 'admin'
+const ADMIN_PASS = '1234'
 
 const features = [
   { icon: 'brain', title: 'Quiz interattivi', desc: 'Domande su phishing, malware, password e social engineering.' },
@@ -64,29 +70,65 @@ const quiz = [
   }
 ]
 
+function requireAuth(req, res, next) {
+  if (req.session.loggedIn) return next()
+  res.status(401).json({ error: 'Non autorizzato' })
+}
+
 app.get('/api/features', (req, res) => res.json(features))
 app.get('/api/team', (req, res) => res.json(team))
 app.get('/api/quiz', (req, res) => res.json(quiz[0]))
 
-app.get('/api/visits', async (req, res) => {
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    req.session.loggedIn = true
+    res.json({ ok: true })
+  } else {
+    res.status(401).json({ error: 'Credenziali errate' })
+  }
+})
+
+app.post('/api/logout', (req, res) => {
+  req.session.destroy()
+  res.json({ ok: true })
+})
+
+app.get('/api/auth/check', (req, res) => {
+  res.json({ loggedIn: !!req.session.loggedIn })
+})
+
+app.get('/api/news', async (req, res) => {
   try {
-    await pool.query('UPDATE visits SET count = count + 1 WHERE id = 1')
-    const result = await pool.query('SELECT count FROM visits WHERE id = 1')
-    res.json({ count: result.rows[0].count })
+    const result = await pool.query('SELECT * FROM news ORDER BY created_at DESC')
+    res.json(result.rows)
   } catch (err) {
-    console.error('Errore visite:', err.message)
     res.status(500).json({ error: 'Errore database' })
   }
 })
 
-app.post('/api/contact', (req, res) => {
-  const { name, email, message } = req.body
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: 'Tutti i campi sono obbligatori' })
+app.post('/api/admin/news', requireAuth, async (req, res) => {
+  const { title, content } = req.body
+  if (!title || !content) return res.status(400).json({ error: 'Titolo e contenuto obbligatori' })
+  try {
+    const result = await pool.query('INSERT INTO news (title, content) VALUES ($1, $2) RETURNING *', [title, content])
+    res.json(result.rows[0])
+  } catch (err) {
+    res.status(500).json({ error: 'Errore database' })
   }
-  messages.push({ name, email, message, date: new Date().toISOString() })
-  console.log(`Messaggio da ${name} <${email}>: ${message}`)
-  res.json({ ok: true })
+})
+
+app.delete('/api/admin/news/:id', requireAuth, async (req, res) => {
+  try {
+    await pool.query('DELETE FROM news WHERE id = $1', [req.params.id])
+    res.json({ ok: true })
+  } catch (err) {
+    res.status(500).json({ error: 'Errore database' })
+  }
+})
+
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'))
 })
 
 app.get('*', (req, res) => {

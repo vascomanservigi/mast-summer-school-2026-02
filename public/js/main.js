@@ -26,20 +26,42 @@ function createTeamCard(item) {
   `
 }
 
+function createNewsCard(item) {
+  const date = new Date(item.created_at).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
+  return `
+    <div class="news-card">
+      <div class="news-date">${date}</div>
+      <h3>${escapeHtml(item.title)}</h3>
+      <p>${escapeHtml(item.content)}</p>
+    </div>
+  `
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div')
+  div.textContent = text
+  return div.innerHTML
+}
+
 function renderIcons() {
   if (typeof lucide !== 'undefined') lucide.createIcons()
 }
 
 async function init() {
   try {
-    const [features, team, visits] = await Promise.all([
+    const [features, team, news] = await Promise.all([
       loadJSON('/api/features'),
       loadJSON('/api/team'),
-      loadJSON('/api/visits'),
+      loadJSON('/api/news'),
     ])
     document.getElementById('features-grid').innerHTML = features.map(createFeatureCard).join('')
     document.getElementById('team-grid').innerHTML = team.map(createTeamCard).join('')
-    document.getElementById('visits-count').textContent = visits.count
+    const newsGrid = document.getElementById('news-grid')
+    if (news.length === 0) {
+      newsGrid.innerHTML = '<p style="color:var(--gray-400)">Nessuna news al momento.</p>'
+    } else {
+      newsGrid.innerHTML = news.map(createNewsCard).join('')
+    }
     renderIcons()
     loadQuiz()
   } catch (err) {

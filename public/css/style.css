@@ -251,6 +251,36 @@ body {
 .quiz-result.correct { background: #d4edda; color: var(--green); }
 .quiz-result.wrong { background: #f8d7da; color: var(--red); }
 
+.news-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem;
+}
+.news-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all .2s;
+}
+.news-card:hover { box-shadow: var(--shadow); }
+.news-date {
+  font-size: 0.8rem; font-weight: 500; color: var(--blue-600);
+  margin-bottom: 0.5rem;
+}
+.news-card h3 { font-size: 1.1rem; font-weight: 600; color: var(--gray-900); margin-bottom: 0.5rem; }
+.news-card p { font-size: 0.9rem; color: var(--gray-500); line-height: 1.6; }
+
+.nav-admin { display: flex; align-items: center; gap: 0.35rem; }
+
+.form-input {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-family: inherit; font-size: 0.95rem;
+  transition: border-color .15s;
+}
+.form-input:focus { outline: none; border-color: var(--blue-600); }
+
 .footer {
   background: var(--gray-900);
   color: var(--gray-400);

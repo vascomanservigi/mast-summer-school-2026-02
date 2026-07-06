@@ -382,22 +382,12 @@ app.delete('/api/admin/contacts/:id', requireAuth, async (req, res) => {
 
 // === PAGES ===
 
-const pages = ['chi-siamo', 'progetto', 'funzionalita', 'risorse', 'news', 'contatti', 'admin', 'news-detail']
-
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'))
 })
 
 app.get('/news/:id', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'news-detail.html'))
-})
-
-app.get('/:page', (req, res, next) => {
-  if (pages.includes(req.params.page)) {
-    res.sendFile(path.join(__dirname, 'public', `${req.params.page}.html`))
-  } else {
-    next()
-  }
 })
 
 app.get('*', (req, res) => {

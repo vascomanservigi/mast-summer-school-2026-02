@@ -4,25 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>News — CyberGuard</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
 </head>
 <body>
-  <nav class="nav">
-    <div class="container">
-      <a href="/" class="nav-brand">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M16 6L26 12V20L16 26L6 20V12L16 6Z" stroke="white" stroke-width="2" fill="none"/><circle cx="16" cy="16" r="4" fill="white"/></svg>
-        CyberGuard
+  <header class="header">
+    <div class="wrap header-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon"></div>
+        <span>CyberGuard</span>
       </a>
-      <a href="/" class="btn btn-secondary">Torna alla home</a>
+      <a href="/#news" class="btn btn-sm btn-outline">Torna alle news</a>
     </div>
-  </nav>
+  </header>
 
-  <article class="container" style="padding:140px 24px 80px; max-width:700px">
-    <div class="news-date" id="date"></div>
-    <h1 id="title" style="font-size:42px; font-weight:700; line-height:1.2; margin-bottom:24px"></h1>
-    <div id="content" style="color:var(--fg-muted); font-size:17px; line-height:1.8"></div>
-    <a href="/#news" class="btn btn-secondary" style="margin-top:40px">← Torna alle news</a>
+  <article class="wrap" style="padding:120px 24px 80px; max-width:640px">
+    <p class="news-date" id="date" style="margin-bottom:16px"></p>
+    <h1 id="title" style="font-family:'Instrument Serif',serif; font-size:36px; font-weight:400; line-height:1.2; margin-bottom:32px"></h1>
+    <div id="content" style="color:var(--text-muted); line-height:1.8"></div>
   </article>
 
   <script>
@@ -36,7 +36,6 @@
         content.innerHTML = n.content.split('\n').filter(p => p.trim()).map(p => `<p style="margin-bottom:1.5em">${p}</p>`).join('')
       } catch {
         title.textContent = 'News non trovata'
-        content.innerHTML = '<p>La news non esiste.</p>'
       }
     }
     load()
